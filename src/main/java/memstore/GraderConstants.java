@@ -18,8 +18,8 @@ public class GraderConstants {
         answers.put("PredicatedAllColumnsSumBench", 4861027493L);
         answers.put("PredicatedColumnSumBench", 2606019L);
         answers.put("PredicatedUpdateBench", 9820L);
-        answers.put("NarrowCustomTableBench", 147213000497L);
-        answers.put("WideCustomTableBench", 785748420116L);
+        answers.put("NarrowCustomTableBench", 147912651077L);
+        answers.put("WideCustomTableBench", 785804581262L);
         return answers;
     }
 }
