@@ -1,6 +1,5 @@
 package memstore.workloadbench;
 
-import memstore.GraderConstants;
 import memstore.data.DataLoader;
 import memstore.data.RandomizedLoader;
 import org.openjdk.jmh.annotations.*;
@@ -20,13 +19,13 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Thread)
 public class NarrowCustomTableBench extends CustomTableBenchAbstract {
     public double getExpectedTime() {
-        return 2000.0;
+        return 1300.0;
     }
 
     @Override
     public DataLoader getRandomLoader() {
         int numCols = 5;
-        int numRows = 15_000_000 / numCols;
+        numRows = 15_000_000 / numCols;
 
         numQueries = 20;
         return new RandomizedLoader(seed, numRows, numCols);

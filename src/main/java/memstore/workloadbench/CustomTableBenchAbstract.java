@@ -2,7 +2,6 @@ package memstore.workloadbench;
 
 import memstore.GraderConstants;
 import memstore.data.DataLoader;
-import memstore.data.RandomizedLoader;
 import memstore.table.CustomTable;
 import memstore.table.Table;
 
@@ -21,6 +20,7 @@ public abstract class CustomTableBenchAbstract {
     int upperBoundColumnValue = 1024;
 
     Table table;
+    int numRows;
     Random random;
     int seed;
 
@@ -42,14 +42,26 @@ public abstract class CustomTableBenchAbstract {
 
         long finalResult = 0;
         for (int i = 0; i < numQueries; i++) {
-            finalResult += table.predicatedUpdate(
-                    random.nextInt(upperBoundColumnValue));
             finalResult += table.columnSum();
-            finalResult += table.predicatedColumnSum(
-                    random.nextInt(upperBoundColumnValue),
-                    random.nextInt(upperBoundColumnValue));
-            finalResult += table.predicatedAllColumnsSum(
-                    random.nextInt(upperBoundColumnValue));
+            int randomThreshold = random.nextInt(upperBoundColumnValue);
+            finalResult += table.predicatedUpdate(randomThreshold);
+            finalResult += table.columnSum();
+            int randomThreshold1 = random.nextInt(upperBoundColumnValue);
+            int randomThreshold2 = random.nextInt(upperBoundColumnValue);
+            finalResult += table.predicatedColumnSum(randomThreshold1, randomThreshold2);
+            // run this expensive query less often
+            if (i % 3 == 0) {
+                int randomThreshold4 = random.nextInt(upperBoundColumnValue);
+                finalResult += table.predicatedAllColumnsSum(randomThreshold4);
+            }
+
+            // add random puts to discourage precomputation during load
+            for (int j = 0; j < 20; j++) {
+                int randRowIdx = random.nextInt(numRows);
+                int randVal = random.nextInt(upperBoundColumnValue);
+                int colIdx = j % 5;
+                table.putIntField(randRowIdx, colIdx, randVal);
+            }
         }
         return finalResult;
     }

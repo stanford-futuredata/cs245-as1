@@ -25,7 +25,7 @@ public class ColumnSumNarrowBench implements TableBenchmark{
     IndexedRowTable it;
 
     public double[] getThresholds() {
-        return new double[]{2.5, 1.7, 2.5};
+        return new double[]{2.5, 2.2, 2.5};
     }
 
     @Setup

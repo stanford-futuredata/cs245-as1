@@ -47,7 +47,7 @@ java -Xmx1328m -Xms500m -jar target/benchmarks.jar -m [mode] -i [num_iter] -ci [
 On Gradescope, we will run the following command,
 
 ```bash
-bash run_autograder.sh
+java -Xmx1328m -Xms500m -XX:-TieredCompilation -jar target/benchmarks.jar -m all -i 60 -ci 30 -o GRADE_FILE
 ```
 
 Gradescope runs will take around 10 minutes to complete, so make sure to try

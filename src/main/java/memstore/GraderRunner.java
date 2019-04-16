@@ -34,7 +34,8 @@ public class GraderRunner {
                 () -> new ColumnSumWideBench(),
                 () -> new PredicatedAllColumnsSumBench(),
                 () -> new PredicatedColumnSumBench(),
-                () -> new PredicatedUpdateBench()
+                () -> new PredicatedUpdateBench(),
+                () -> new UpdatesBench()
         );
     }
 
@@ -68,10 +69,10 @@ public class GraderRunner {
 
             curTest.prepare();
 
-            long trueResult = trueResults.get(testName);
             long rowResult = curTest.testRowTable();
             long colResult = curTest.testColumnTable();
             long idxResult = curTest.testIndexedTable();
+            long trueResult = trueResults.get(testName);
 
             int score = 0;
             int maxScore = 3;
@@ -238,7 +239,7 @@ public class GraderRunner {
      * Custom workload benchmarks
      */
     public static CustomTiming benchCustom(int numIter) throws RunnerException {
-        int numForks = 2;
+        int numForks = 4;
         int numIterPerFork = numIter;
         if (numIter < numForks)  {
             numForks = 1;
@@ -253,7 +254,7 @@ public class GraderRunner {
                 .warmupIterations(1)
                 .warmupTime(TimeValue.seconds(4))
                 .measurementIterations(numIterPerFork)
-                .measurementTime(TimeValue.seconds(8))
+                .measurementTime(TimeValue.seconds(4))
                 .forks(numForks)
                 .build();
 
