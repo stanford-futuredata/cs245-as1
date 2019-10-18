@@ -1,10 +1,15 @@
 package memstore.table;
 
 import it.unimi.dsi.fastutil.ints.IntArrayList;
+import javafx.util.Pair;
+import memstore.data.ByteFormat;
 import memstore.data.DataLoader;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -23,6 +28,10 @@ public class IndexedRowTable implements Table {
     private ByteBuffer rows;
     private int indexColumn;
 
+    /**
+     * 用户可调用此函数以设置哪一列为 indexColumn
+     * @param indexColumn
+     */
     public IndexedRowTable(int indexColumn) {
         this.indexColumn = indexColumn;
     }
@@ -35,7 +44,27 @@ public class IndexedRowTable implements Table {
      */
     @Override
     public void load(DataLoader loader) throws IOException {
-        // TODO: Implement this!
+        numCols = loader.getNumCols();
+        List<ByteBuffer> rows = loader.getRows();
+        numRows = rows.size();
+        this.rows = ByteBuffer.allocate(ByteFormat.FIELD_LEN * numRows * numCols);
+        index = new TreeMap<>();
+
+        for(int rowId = 0; rowId < numRows; rowId++) {
+            ByteBuffer curRow = rows.get(rowId);
+            for(int colId = 0; colId < numCols; colId++) {
+                int offset = ByteFormat.FIELD_LEN * (rowId * numCols + colId);
+                int value = curRow.getInt(ByteFormat.FIELD_LEN * colId);
+                this.rows.putInt(offset, value);
+                // 下面开始建立索引
+                if(colId == indexColumn) {
+                    if(!index.containsKey(value)) {
+                        index.put(value, new IntArrayList());
+                    }
+                    index.get(value).add(rowId);
+                }
+            }
+        }
     }
 
     /**
@@ -43,8 +72,8 @@ public class IndexedRowTable implements Table {
      */
     @Override
     public int getIntField(int rowId, int colId) {
-        // TODO: Implement this!
-        return 0;
+        int offset = ByteFormat.FIELD_LEN * (rowId * numCols + colId);
+        return rows.getInt(offset);
     }
 
     /**
@@ -52,7 +81,8 @@ public class IndexedRowTable implements Table {
      */
     @Override
     public void putIntField(int rowId, int colId, int field) {
-        // TODO: Implement this!
+        int offset = ByteFormat.FIELD_LEN * (rowId * numCols + colId);
+        rows.putInt(offset, field);
     }
 
     /**
@@ -63,8 +93,14 @@ public class IndexedRowTable implements Table {
      */
     @Override
     public long columnSum() {
-        // TODO: Implement this!
-        return 0;
+        long sum = 0;
+        if(indexColumn == 0) {
+            for(int value : index.keySet()) {
+                IntArrayList cols = index.get(value);
+                sum += value * cols.size();
+            }
+        }
+        return sum;
     }
 
     /**
@@ -76,8 +112,8 @@ public class IndexedRowTable implements Table {
      */
     @Override
     public long predicatedColumnSum(int threshold1, int threshold2) {
-        // TODO: Implement this!
-        return 0;
+        long sum = 0;
+        return sum;
     }
 
     /**
