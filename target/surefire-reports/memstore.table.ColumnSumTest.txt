@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: memstore.table.ColumnSumTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in memstore.table.ColumnSumTest
+testColumnTable(memstore.table.ColumnSumTest)  Time elapsed: 0.001 s  <<< FAILURE!
+java.lang.AssertionError: expected:<68> but was:<0>
+	at memstore.table.ColumnSumTest.testColumnTable(ColumnSumTest.java:36)
+
+testIndexedTable(memstore.table.ColumnSumTest)  Time elapsed: 0 s  <<< FAILURE!
+java.lang.AssertionError: expected:<68> but was:<0>
+	at memstore.table.ColumnSumTest.testIndexedTable(ColumnSumTest.java:43)
+
+testRowTable(memstore.table.ColumnSumTest)  Time elapsed: 0.001 s  <<< FAILURE!
+java.lang.AssertionError: expected:<68> but was:<0>
+	at memstore.table.ColumnSumTest.testRowTable(ColumnSumTest.java:29)
+

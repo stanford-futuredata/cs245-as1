@@ -19,7 +19,7 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Thread)
 public class NarrowCustomTableBench extends CustomTableBenchAbstract {
     public double getExpectedTime() {
-        return 1300.0;
+        return 1700.0;
     }
 
     @Override

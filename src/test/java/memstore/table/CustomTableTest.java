@@ -27,6 +27,6 @@ public class CustomTableTest {
         assertEquals(342, ct.predicatedAllColumnsSum(-1));
         assertEquals(49, ct.predicatedColumnSum(3, 5));
         assertEquals(9, ct.predicatedUpdate(3));
-        assertEquals(375, ct.predicatedAllColumnsSum(-1));
+        assertEquals(360, ct.predicatedAllColumnsSum(-1));
     }
 }

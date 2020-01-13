@@ -1,0 +1,12 @@
+-------------------------------------------------------------------------------
+Test set: memstore.table.TableLoadTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 2, Errors: 0, Skipped: 0, Time elapsed: 0.043 s <<< FAILURE! - in memstore.table.TableLoadTest
+testLoadRandom(memstore.table.TableLoadTest)  Time elapsed: 0.043 s  <<< FAILURE!
+java.lang.AssertionError: RowTable expected:<375> but was:<0>
+	at memstore.table.TableLoadTest.testLoadRandom(TableLoadTest.java:48)
+
+testLoadCSV(memstore.table.TableLoadTest)  Time elapsed: 0.041 s  <<< FAILURE!
+java.lang.AssertionError: RowTable expected:<1> but was:<0>
+	at memstore.table.TableLoadTest.testLoadCSV(TableLoadTest.java:31)
+

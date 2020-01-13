@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: memstore.table.CustomTableTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.001 s <<< FAILURE! - in memstore.table.CustomTableTest
+testQueries(memstore.table.CustomTableTest)  Time elapsed: 0.001 s  <<< FAILURE!
+java.lang.AssertionError: expected:<68> but was:<0>
+	at memstore.table.CustomTableTest.testQueries(CustomTableTest.java:25)
+

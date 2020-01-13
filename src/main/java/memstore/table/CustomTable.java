@@ -78,7 +78,7 @@ public class CustomTable implements Table {
 
     /**
      * Implements the query
-     *   UPDATE(col3 = col1 + col2) WHERE col0 < threshold;
+     *   UPDATE(col3 = col3 + col2) WHERE col0 < threshold;
      *
      *   Returns the number of rows updated.
      */
