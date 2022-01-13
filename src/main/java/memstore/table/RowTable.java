@@ -46,7 +46,6 @@ public class RowTable implements Table {
      */
     @Override
     public int getIntField(int rowId, int colId) {
-        this.rows.rewind();
         return this.rows.getInt(ByteFormat.FIELD_LEN * ((rowId * numCols) + colId));
     }
 
@@ -55,7 +54,6 @@ public class RowTable implements Table {
      */
     @Override
     public void putIntField(int rowId, int colId, int field) {
-        this.rows.rewind();
         this.rows.putInt(ByteFormat.FIELD_LEN * ((rowId * numCols) + colId), field);
     }
 
